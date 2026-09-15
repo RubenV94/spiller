@@ -1,0 +1,7 @@
+{
+  "name": "Spiller",
+  "description": "Taskbar media control pill that unifies Spotify, browser tabs, VLC and other MPRIS players.",
+  "uuid": "spiller@rubenvatle.github",
+  "shell-version": ["45", "46", "47"],
+  "url": "https://github.com/rubenvatle/spiller"
+}

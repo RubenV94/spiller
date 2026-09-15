@@ -1,0 +1,138 @@
+.spiller-pill {
+    background-color: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    padding: 2px 10px;
+    spacing: 6px;
+    width: 190px;
+}
+
+.spiller-pill-icon {
+    color: white;
+    font-size: 12px;
+}
+
+.spiller-pill-label {
+    color: white;
+    font-size: 12px;
+    width: 100px;
+}
+
+.spiller-icon-btn {
+    padding: 2px;
+    border-radius: 999px;
+}
+
+.spiller-icon-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.spiller-popup {
+    padding: 14px;
+    spacing: 10px;
+    width: 300px;
+}
+
+/* --- Hero (currently playing, big) --- */
+.spiller-hero {
+    spacing: 6px;
+    padding-bottom: 12px;
+}
+
+.spiller-hero-badge {
+    width: 56px;
+    height: 56px;
+    line-height: 56px;
+    border-radius: 16px;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+}
+
+.spiller-hero-title {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    width: 260px;
+    text-align: center;
+}
+
+.spiller-hero-subtitle {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 12px;
+    width: 260px;
+    text-align: center;
+    padding-bottom: 6px;
+}
+
+.spiller-hero-controls {
+    spacing: 18px;
+    padding-top: 4px;
+}
+
+.spiller-hero-pin-row {
+    spacing: 6px;
+    padding-top: 8px;
+}
+
+.spiller-pin-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
+}
+
+.spiller-pin-glyph {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+}
+
+.spiller-divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.15);
+    margin: 4px 0;
+}
+
+/* --- Other players, compact rows below --- */
+.spiller-row {
+    spacing: 10px;
+    padding: 5px 2px;
+}
+
+.spiller-row-badge {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 7px;
+    font-size: 12px;
+    color: white;
+    text-align: center;
+}
+
+.spiller-row-label {
+    color: white;
+    font-size: 13px;
+    width: 190px;
+}
+
+.spiller-empty-label {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+    padding: 8px 2px;
+    width: 260px;
+}
+
+/* --- Per-source colors --- */
+.spiller-src-spotify {
+    background-color: #1D9E75;
+}
+
+.spiller-src-browser {
+    background-color: #E24B4A;
+}
+
+.spiller-src-vlc {
+    background-color: #EF9F27;
+}
+
+.spiller-src-default {
+    background-color: #6B6F76;
+}
