@@ -27,6 +27,11 @@
     background-color: rgba(255, 255, 255, 0.15);
 }
 
+/* --- Plane background: a bit more see-through than Utklipp (0.97) --- */
+.popup-menu-content.spiller-plane {
+    background-color: rgba(34, 34, 38, 0.90);
+}
+
 .spiller-popup {
     padding: 14px;
     spacing: 10px;

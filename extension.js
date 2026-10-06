@@ -81,6 +81,8 @@ class SpillerIndicator extends PanelMenu.Button {
         });
         section.add_child(this._popupContent);
         this.menu.addMenuItem(section);
+        // Slightly see-through background for the Plane (see stylesheet.css)
+        this.menu.box.add_style_class_name('spiller-plane');
 
         this._render();
         this._refresh();
