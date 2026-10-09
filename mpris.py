@@ -40,6 +40,10 @@ class PlayerState:
     status: str            # "Playing" | "Paused" | "Stopped"
     can_go_next: bool
     can_go_previous: bool
+    desktop_entry: str = ""  # e.g. "spotify" -- used to look up the app's
+                              # real installed icon (see DesktopEntry in
+                              # the MPRIS spec). Empty if the player doesn't
+                              # provide one.
 
     @property
     def short_name(self) -> str:
@@ -67,6 +71,11 @@ class Player:
             except dbus.DBusException:
                 identity = self.bus_name
 
+            try:
+                desktop_entry = str(self._props.Get(ROOT_IFACE, "DesktopEntry"))
+            except dbus.DBusException:
+                desktop_entry = ""
+
             title = str(metadata.get("xesam:title", "") or "")
             artists = metadata.get("xesam:artist", []) or []
             artist = ", ".join(str(a) for a in artists) if artists else ""
@@ -82,6 +91,7 @@ class Player:
                 status=str(status),
                 can_go_next=can_next,
                 can_go_previous=can_prev,
+                desktop_entry=desktop_entry,
             )
         except dbus.DBusException as e:
             # Player likely quit between enumeration and read, or genuinely

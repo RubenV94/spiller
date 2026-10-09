@@ -81,8 +81,6 @@ class SpillerIndicator extends PanelMenu.Button {
         });
         section.add_child(this._popupContent);
         this.menu.addMenuItem(section);
-        // Slightly see-through background for the Plane (see stylesheet.css)
-        this.menu.box.add_style_class_name('spiller-plane');
 
         this._render();
         this._refresh();
@@ -146,6 +144,67 @@ class SpillerIndicator extends PanelMenu.Button {
         this._render();
     }
 
+    _lookupRealIcon(p) {
+        // 1) The player's own DesktopEntry, if it reports one.
+        // 2) A guess from its display name (e.g. "Brave" -> brave-browser).
+        // 3) A search of installed apps by that name.
+        const ids = [];
+        if (p.desktop_entry) {
+            ids.push(`${p.desktop_entry}.desktop`);
+            // Snap packages name their desktop files "<snap>_<app>.desktop",
+            // e.g. spotify_spotify.desktop.
+            ids.push(`${p.desktop_entry}_${p.desktop_entry}.desktop`);
+        }
+
+        const name = (p.identity || '').toLowerCase().replace(/\s+/g, '-');
+        if (name) {
+            ids.push(`${name}.desktop`);
+            ids.push(`${name}-browser.desktop`);
+        }
+
+        for (const id of ids) {
+            try {
+                const appInfo = Gio.DesktopAppInfo.new(id);
+                if (appInfo && appInfo.get_icon())
+                    return appInfo.get_icon();
+            } catch (e) {
+                // Not installed under that id; try the next one.
+            }
+        }
+
+        try {
+            const hits = Gio.DesktopAppInfo.search(p.identity || '');
+            for (const group of hits) {
+                for (const id of group) {
+                    const appInfo = Gio.DesktopAppInfo.new(id);
+                    if (appInfo && appInfo.get_icon())
+                        return appInfo.get_icon();
+                }
+            }
+        } catch (e) {
+            // Search unavailable; fall through to the badge.
+        }
+        return null;
+    }
+
+    _makeBadge(p, sizeClass) {
+        const gicon = this._lookupRealIcon(p);
+        if (gicon) {
+            const iconSize = sizeClass === 'spiller-hero-badge' ? 40 : 18;
+            return new St.Icon({
+                gicon,
+                icon_size: iconSize,
+                style_class: `${sizeClass} spiller-badge-real`,
+            });
+        }
+        // Fallback: no DesktopEntry (or no matching installed icon) --
+        // use the colored glyph badge instead.
+        return new St.Label({
+            text: this._sourceGlyph(p.identity),
+            style_class: `${sizeClass} ${this._sourceClass(p.identity)}`,
+        });
+    }
+
     _sourceClass(identity) {
         const id = (identity || '').toLowerCase();
         if (id.includes('spotify')) return 'spiller-src-spotify';
@@ -194,11 +253,8 @@ class SpillerIndicator extends PanelMenu.Button {
         // --- Hero: the currently-playing (or most relevant) source, big ---
         const heroBox = new St.BoxLayout({vertical: true, style_class: 'spiller-hero'});
 
-        const heroBadge = new St.Label({
-            text: this._sourceGlyph(hero.identity),
-            style_class: `spiller-hero-badge ${this._sourceClass(hero.identity)}`,
-            x_align: Clutter.ActorAlign.CENTER,
-        });
+        const heroBadge = this._makeBadge(hero, 'spiller-hero-badge');
+        heroBadge.x_align = Clutter.ActorAlign.CENTER;
         heroBox.add_child(heroBadge);
 
         const heroTitle = new St.Label({
@@ -252,11 +308,8 @@ class SpillerIndicator extends PanelMenu.Button {
 
         for (const p of rest) {
             const row = new St.BoxLayout({vertical: false, style_class: 'spiller-row'});
-            const badge = new St.Label({
-                text: this._sourceGlyph(p.identity),
-                style_class: `spiller-row-badge ${this._sourceClass(p.identity)}`,
-                y_align: Clutter.ActorAlign.CENTER,
-            });
+            const badge = this._makeBadge(p, 'spiller-row-badge');
+            badge.y_align = Clutter.ActorAlign.CENTER;
             const label = new St.Label({
                 text: p.title || p.identity,
                 style_class: 'spiller-row-label',

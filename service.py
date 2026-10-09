@@ -50,6 +50,7 @@ class SpillerService(dbus.service.Object):
                 "status": s.status,
                 "can_go_next": s.can_go_next,
                 "can_go_previous": s.can_go_previous,
+                "desktop_entry": s.desktop_entry,
             }
             for s in states
         ]
