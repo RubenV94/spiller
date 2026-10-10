@@ -81,6 +81,13 @@ class SpillerIndicator extends PanelMenu.Button {
         });
         section.add_child(this._popupContent);
         this.menu.addMenuItem(section);
+        // The popup background is painted by the menu's inner content box
+        // (tested live with Looking Glass), so the translucent look is
+        // set there. Set inline so the theme's own rules can't override it.
+        this.menu.box.set_style(
+            'background-color: rgba(24, 26, 30, 0.92);' +
+            'border: 1px solid rgba(255, 255, 255, 0.18);' +
+            'border-radius: 22px;');
 
         this._render();
         this._refresh();
