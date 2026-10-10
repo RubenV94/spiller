@@ -93,10 +93,11 @@ cloned. If you clone it somewhere else, edit the `ExecStart` and
 `WorkingDirectory` lines in the file (or in your copy at
 `~/.config/systemd/user/spiller.service`) to match before enabling it.
 
-Oct 9 -2026
+
 ## Changelog
 
-- 2026-10-09: Added real app icons for each player, and a project logo
+- oct 9 2026: Added real app icons for each player, and a project logo
+- oct 11 2026. made Spiller plane transpaent (0,92)
 
 ## Status
 
