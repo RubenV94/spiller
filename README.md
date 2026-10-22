@@ -17,7 +17,7 @@ both living together in this one folder:
   Python. Finds MPRIS players over D-Bus and exposes play/pause/next/
   previous plus track metadata. No GUI code lives here, and it can be
   tested completely on its own.
-- `extension.js` / `metadata.json` / `stylesheet.css` — a small GNOME
+- `extension.js` / `metadata.json` / `stylesheet.css` a small GNOME
   Shell extension (JavaScript, the only language the shell itself accepts)
   that renders the Dock and the Plane in the taskbar and talks to the
   Python backend.
@@ -39,7 +39,7 @@ Note: the backend uses `dbus-python` (`python3-dbus`), not `pydbus`. Some
 Chromium-based browsers (Brave, confirmed) return an incomplete D-Bus
 introspection response that `pydbus`'s proxy-building can't parse, even
 though the underlying MPRIS methods work fine when called directly by
-interface name — which is what `dbus-python` lets us do.
+interface name which is what `dbus-python` lets us do.
 
 ## Run the full thing (backend service + shell extension)
 
